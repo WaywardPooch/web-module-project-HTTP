@@ -20,6 +20,7 @@ const EditMovieForm = (props) => {
       .get(`http://localhost:5000/api/movies/${id}`)
       .then((response) => {
         setMovie(response.data);
+        console.log("EDITED MOVIE SUCCESSFULLY!");
       })
       .catch((error) => {
         console.error("COULD NOT GET MOVIE INFO!", error);

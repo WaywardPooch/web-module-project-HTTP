@@ -1,6 +1,7 @@
 // Libraries
-import axios from "axios";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const AddMovieForm = (props) => {
   // Destructuring
@@ -29,6 +30,8 @@ const AddMovieForm = (props) => {
       .post("http://localhost:5000/api/movies", newMovie)
       .then((response) => {
         setMovies(response.data);
+        console.log("ADDED MOVIE SUCCESSFULLY!");
+        push("/movies");
       })
       .catch((error) => {
         console.error("COULD NOT POST NEW MOVIE TO API!", error);
