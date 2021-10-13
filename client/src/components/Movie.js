@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Movie = (props) => {
   // Destructuring
-  const { addToFavorites } = props;
+  const { addToFavorites, deleteMovie } = props;
   const { id } = useParams();
   const { push } = useHistory();
 
@@ -22,6 +22,20 @@ const Movie = (props) => {
         console.log(err.response);
       });
   }, [id]);
+
+  // Event Handlers
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:5000/api/movies/${id}`)
+      .then((response) => {
+        console.log("SUCCESSFULLY DELETED MOVIE!");
+        deleteMovie(response.data);
+        push("/movies");
+      })
+      .catch((error) => {
+        console.log("FAILED TO DELETE MOVIE!", error);
+      });
+  };
 
   return (
     <div className="modal-page col">
@@ -71,6 +85,7 @@ const Movie = (props) => {
                 </Link>
                 <span className="delete">
                   <input
+                    onClick={handleDelete}
                     type="button"
                     className="m-2 btn btn-danger"
                     value="Delete"
